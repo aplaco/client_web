@@ -18,9 +18,7 @@ document.querySelector("#join").addEventListener("submit", (e) => {
   
     const strJson = JSON.stringify(userInfo);
     const data = await fetch("http://127.0.0.1:8080/api/join/create", {
-      headers: {
-        "Content-Type": "application/json",
-      },
+      headers: { "Content-Type": "application/json" },
       method: "POST",
       body: strJson,
     });
