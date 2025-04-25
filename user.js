@@ -1,12 +1,18 @@
-getUsers(1);
+// 유저 뷰 초기화 함수 호출
+setUserView();
 
-// DB에서 회원 정보 호출 및 동적 리스트 생성 함수
-async function getUsers(pageNum = 0) {
+//유저 데이터, 동적 이벤트 초기화 함수
+async function setUserView() {
+  const [btnDel, btnEdit] = await createUserList();
+  bindingDelEvent(btnDel);
+}
+
+//DB 데이터를 기반 동적 목록 생성 함수
+async function createUserList(pageNum = 0) {
   const section = document.querySelector("section");
   const res = await fetch(`http://localhost:8080/api/admin?page=${pageNum}`);
   const data = await res.json();
   const userArr = data.users;
-  console.log(userArr);
   let tags = "";
 
   userArr.forEach((user) => {
@@ -16,14 +22,21 @@ async function getUsers(pageNum = 0) {
         <p>${user.email}</p>
         <span>${user.colors}</span>
         <button class='btnDel' data-id=${user.id}>delete</button>
+        <button class='btnEdit' data-id=${user.id}>Edit</button>
       </article>
     `;
-  }); //tags 반복 끝
+  });
 
   section.innerHTML = tags;
 
-  const btns = document.querySelectorAll(".btnDel");
+  const btnDel = document.querySelectorAll(".btnDel");
+  const btnEdit = document.querySelectorAll(".btnEdit");
 
+  return [btnDel, btnEdit];
+}
+
+//동적 생성된 삭제 버튼 요소에 이벤트 바인딩 함수
+function bindingDelEvent(btns) {
   btns.forEach((btn) => {
     btn.addEventListener("click", async (e) => {
       const memberId = e.currentTarget.getAttribute("data-id");
