@@ -11,7 +11,7 @@ async function createUserList(pageNum = 0) {
   userArr.forEach((user) => {
     tags += `
       <article>
-        <h2>${user.uname}</h2>
+        <h3>${user.uname}</h3>
         <p>${user.email}</p>
         <span>${user.colors}</span>       
         <button class='btnDel' data-id=${user.id}>delete</button>
@@ -40,7 +40,7 @@ function bindingDelEvent(btns) {
           method: "DELETE",
         }
       );
-      result = await data.json();
+      const result = await data.json();
       alert(result.message);
       location.href = "index.html";
     });
