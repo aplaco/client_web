@@ -1,11 +1,4 @@
-// 유저 뷰 초기화 함수 호출
-setUserView();
-
-//유저 데이터, 동적 이벤트 초기화 함수
-async function setUserView() {
-  const [btnDel, btnEdit] = await createUserList();
-  bindingDelEvent(btnDel);
-}
+createUserList();
 
 //DB 데이터를 기반 동적 목록 생성 함수
 async function createUserList(pageNum = 0) {
@@ -20,19 +13,18 @@ async function createUserList(pageNum = 0) {
       <article>
         <h2>${user.uname}</h2>
         <p>${user.email}</p>
-        <span>${user.colors}</span>
+        <span>${user.colors}</span>       
         <button class='btnDel' data-id=${user.id}>delete</button>
-        <button class='btnEdit' data-id=${user.id}>Edit</button>
+        <a href="edit_form.html?id=${user.id}">edit</a>
       </article>
     `;
   });
-
+  //수정 버튼은 수정 전용 페이지에서 글 고유 번호를 받아야 되므로
+  //edit_form.html?id=회원아이디 식으로 링크 설정
   section.innerHTML = tags;
 
   const btnDel = document.querySelectorAll(".btnDel");
-  const btnEdit = document.querySelectorAll(".btnEdit");
-
-  return [btnDel, btnEdit];
+  bindingDelEvent(btnDel);
 }
 
 //동적 생성된 삭제 버튼 요소에 이벤트 바인딩 함수
