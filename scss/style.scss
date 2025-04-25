@@ -1,0 +1,18 @@
+@use "reset";
+
+header {
+  width: 100%;
+  padding: 5vh 10vw;
+  border-bottom: 1px solid lch(0% 0 0 / 0.4);
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+main {
+  padding: 5vh 10vw;
+
+  h2 {
+    font-size: 5vw;
+  }
+}
